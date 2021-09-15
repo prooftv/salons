@@ -17,6 +17,17 @@
 <html>
   <head>
     <style>
+      :root {
+        --select-border: #777;
+        --select-focus: blue;
+        --select-arrow: var(--select-border);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
       html,
       body {
         font-family: Arial, sans-serif;
@@ -32,6 +43,61 @@
 
       input {
         font-size: 12px;
+      }
+
+      .mb-1 {
+        margin-bottom: 10px;
+      }
+
+      select {
+        /* A reset of styles, including removing the default dropdown arrow */
+        appearance: none;
+        /* Additional resets for further consistency */
+        background-color: transparent;
+        border: none;
+        padding: 0 1em 0 0;
+        margin: 0;
+        width: 100%;
+        font-family: inherit;
+        font-size: inherit;
+        cursor: inherit;
+        line-height: inherit;
+        outline: none;
+      }
+
+      select::-ms-expand {
+        display: none;
+      }
+
+      .select {
+        display: grid;
+        grid-template-areas: "select";
+        align-items: center;
+        width: 100%;
+        min-width: 15ch;
+        max-width: 100%;
+        border: 1px solid var(--select-border);
+        border-radius: 0.25em;
+        padding: 0.25em 0.5em;
+        font-size: 0.95rem;
+        cursor: pointer;
+        line-height: 1.1;
+        background-color: #fff;
+        background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+      }
+
+      .select::after {
+        content: "";
+        width: 0.8em;
+        height: 0.5em;
+        background-color: var(--select-arrow);
+        clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+        justify-self: end;
+      }
+
+      select,
+      .select:after {
+        grid-area: select;
       }
 
       h1 {
@@ -171,18 +237,23 @@
         
         <div>
           <span class="text"> Within </span>
-          <select id="max-duration">
-            <option value="10">10 min</option>
-            <option value="15">15 min</option>
-            <option value="30">30 min</option>
-            <option value="60">1 hour</option>
-          </select>
-          <select id="mode">
-            <option value="DRIVING">drive</option>
-            <option value="WALKING">walk</option>
-            <option value="BICYCLING">bike</option>
-            <option value="TRANSIT">transit ride</option>
-          </select>
+          <div class="select mb-1">
+            <select id="max-duration">
+              <option value="10">10 min</option>
+              <option value="15">15 min</option>
+              <option value="30">30 min</option>
+              <option value="60">1 hour</option>
+            </select>
+          </div>
+
+          <div class="select">
+            <select id="mode">
+              <option value="DRIVING">drive</option>
+              <option value="WALKING">walk</option>
+              <option value="BICYCLING">bike</option>
+              <option value="TRANSIT">transit ride</option>
+            </select>
+          </div>
           <span class="text">of</span>
           <div class="column">
             <input id="search-within-time-text" type="text" placeholder="Ex: Name of a place or street name, Province">
