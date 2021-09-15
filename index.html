@@ -53,6 +53,30 @@
         border: none;
       }
 
+      .btn {
+        position: relative;
+        padding:0.7em 1.4em;
+        margin:0 0.3em 0.3em 0;
+        border: none;
+        border-radius:0.15em;
+        box-sizing: border-box;
+        text-decoration:none;
+        font-family:'Roboto',sans-serif;
+        text-transform:uppercase;
+        font-weight:400;
+        color:#FFFFFF;
+        background-color:#3369ff;
+        box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+        text-align:center;
+      }
+      .show-hide {
+        margin-left: 0.75em;
+      }
+      
+      .show-hide:hover {
+        cursor: pointer;
+      }
+
       #map {
         bottom:0px;
         height: 100%;
@@ -65,11 +89,13 @@
         background: #fff;
         border: 1px solid #999;
         border-radius: 3px;
-        height: 80%;
+        /* height: 80%; */
         line-height: 35px;
         padding: 10px 10px 30px 10px;
         text-align: left;
         width: 340px;
+        box-sizing: border-box;
+        margin-left: 10px;
       }
 
       #pano {
@@ -77,9 +103,9 @@
         height: 200px;
       }
 
-      #places-search,
-      #search-within-time-text {
-        width: 84%;
+      #places-search {
+        width: 90%;
+        margin-right: 5px;
       }
 
       .text {
@@ -87,41 +113,59 @@
       }
 
       #toggle-drawing {
-        width: 27%;
+        /* width: 27%; */
         position: relative;
-        margin-left: 10px;
+        /* margin-left: 5px; */
       }
 
-      #zoom-to-area-text {
+      .zoom-inputs, .column {
+        display: flex;
+      }
+
+      .zoom-inputs #zoom-to-area-text {
+        width: 70%;
+        margin-right: 5px;
+      }
+
+      .column #search-within-time-text {
+        width: 90%;
+        margin-right: 5px;
+      }
+
+      .zoom-inputs .btn, .column .btn {
+        margin-bottom: 0;
+      }
+
+      /* #zoom-to-area-text {
         width: 70%;
       }
 
       #zoom-to-area {
         width: 24%;
-      }
+      } */
     </style>
   </head>
   <title>Find Participating Salons Nearby Your Location</title>
   <body>
     <p>Click the "Show | Hide" button to hide and display the search panels:</p>
-    <button onclick="showHideInfoPanel()">Show | Hide</button>
+    <button onclick="showHideInfoPanel()" class="btn show-hide">Show | Hide</button>
     
     <div class="container">
       <div id="options-box">
         <h1>Find Salons Nearby</h1>
         
         <div>
-          <input id="show-listings" type="button" value="Show Listings">
-          <input id="hide-listings" type="button" value="Hide Listings">
+          <input id="show-listings" class="btn" type="button" value="Show Listings">
+          <input id="hide-listings" class="btn" type="button" value="Hide Listings">
           <hr>
           <span class="text"> Draw a shape to search within it for salons!</span>
-          <input id="toggle-drawing"  type="button" value="Drawing Tools">
+          <input id="toggle-drawing" class="btn" type="button" value="Drawing Tools">
         </div>
         <hr>
         
-        <div>
+        <div class="zoom-inputs">
           <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite location!">
-          <input id="zoom-to-area" type="button" value="Zoom | View">
+          <input id="zoom-to-area" class="btn" type="button" value="Zoom | View">
         </div>
         <hr>
         
@@ -140,15 +184,19 @@
             <option value="TRANSIT">transit ride</option>
           </select>
           <span class="text">of</span>
-          <input id="search-within-time-text" type="text" placeholder="Ex: Name of a place or street name, Province">
-          <input id="search-within-time" type="button" value="Go">
+          <div class="column">
+            <input id="search-within-time-text" type="text" placeholder="Ex: Name of a place or street name, Province">
+            <input id="search-within-time" class="btn" type="button" value="Go">
+          </div>
         </div>
         <hr>
         
         <div>
           <span class="text">Search for nearby places</span>
-          <input id="places-search" type="text" placeholder="Ex: Salon, RSA">
-          <input id="go-places" type="button" value="Go">
+          <div class="column">
+            <input id="places-search" type="text" placeholder="Ex: Salon, RSA">
+            <input id="go-places" class="btn" type="button" value="Go">
+          </div>
         </div>
       </div>
       <div>
