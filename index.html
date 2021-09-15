@@ -104,10 +104,12 @@
   <title>Find Participating Salons Nearby Your Location</title>
   <body>
     <p>Click the "Show | Hide" button to hide and display the search panels:</p>
-    <button onclick="myFunction()">Show | Hide</button>
+    <button onclick="showHideInfoPanel()">Show | Hide</button>
+    
     <div class="container">
       <div id="options-box">
         <h1>Find Salons Nearby</h1>
+        
         <div>
           <input id="show-listings" type="button" value="Show Listings">
           <input id="hide-listings" type="button" value="Hide Listings">
@@ -116,11 +118,13 @@
           <input id="toggle-drawing"  type="button" value="Drawing Tools">
         </div>
         <hr>
+        
         <div>
           <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite location!">
           <input id="zoom-to-area" type="button" value="Zoom | View">
         </div>
         <hr>
+        
         <div>
           <span class="text"> Within </span>
           <select id="max-duration">
@@ -140,26 +144,33 @@
           <input id="search-within-time" type="button" value="Go">
         </div>
         <hr>
+        
         <div>
           <span class="text">Search for nearby places</span>
           <input id="places-search" type="text" placeholder="Ex: Food delivery in, DBN">
           <input id="go-places" type="button" value="Go">
         </div>
+      </div>
+      <div>
+        <div id="map"></div>
+      </div>
     </div>
+    
     <script>
      // hide and show info panel to view map
-      function myFunction() {
-          var x = document.getElementById("options-box");
-          if (x.style.display === "none") {
-              x.style.display = "block";
+      function showHideInfoPanel() {
+          const sidePanel = document.getElementById("options-box");
+          const map = document.getElementById("map");
+
+          if (sidePanel.style.display === "none") {
+            sidePanel.style.display = "block";
+            map.style.left = "362px";
           } else {
-              x.style.display = "none";
-            }
+            sidePanel.style.display = "none";
+            map.style.left = "0px";
+          }
         }
     </script>
-    <div>
-      <div id="map"></div>
-    </div>
     <script>
       
       var map;
