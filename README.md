@@ -1,50 +1,34 @@
-Build a Nearby Business Search service with Google Maps Platform
-============
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Learn to use Google Maps Platform’s Maps and Places APIs to build a local business search, which geolocates the user and shows interesting places around them. The app integrates location, place details, place photos, and more.
+## Getting Started
 
-This is the code referenced in the [Build a Nearby Business Search service with Google Maps Platform](https://codelabs.developers.google.com/codelabs/google-maps-nearby-search-js/) code lab from Google.
+First, run the development server:
 
-What You'll Learn
-------------
-* How to create a customizable map
-* How to geolocate the user
-* How to search for nearby places and display the results
-* How to fetch and display details about a place
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-What You'll Need
---------------
-* A web browser
-* Your favorite text or code editor
-* Basic knowledge of HTML, CSS, and JavaScript
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Support
--------
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-- Stack Overflow: https://stackoverflow.com/questions/tagged/google-maps
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-If you've found an error in this sample, please file an issue:
-https://github.com/googlecodelabs/google-maps-nearby-search-js/issues
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-Patches are encouraged, and may be submitted by forking this project and
-submitting a pull request through GitHub.
+## Learn More
 
-License
--------
+To learn more about Next.js, take a look at the following resources:
 
-Copyright 2019 Google, Inc.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Licensed to the Apache Software Foundation (ASF) under one or more contributor
-license agreements.  See the NOTICE file distributed with this work for
-additional information regarding copyright ownership.  The ASF licenses this
-file to you under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy of
-the License at
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-  http://www.apache.org/licenses/LICENSE-2.0
+## Deploy on Vercel
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
-License for the specific language governing permissions and limitations under
-the License.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
