@@ -1,0 +1,7 @@
+GetUser:
+  handler: functions/users/get.getUser
+  events:
+    - http:
+        path: user/{id}
+        method: GET
+        cors: true
