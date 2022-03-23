@@ -1,11 +1,12 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Layout from '@components/Layouts'
 
 const Login: NextPage = (): JSX.Element => {
   return (
     <Layout title="Login">
-      <div className="flex h-screen w-screen bg-indigo-700">
+      <h1>Hello login</h1>
+      {/* <div className="flex h-screen w-screen bg-indigo-700">
         <div className="w-full max-w-xs m-auto bg-indigo-100 rounded p-5">
           <header className="text-center  mb-3">
             <Image
@@ -58,7 +59,7 @@ const Login: NextPage = (): JSX.Element => {
             </a>
           </footer>
         </div>
-      </div>
+      </div> */}
     </Layout>
   )
 }

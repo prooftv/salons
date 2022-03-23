@@ -2,8 +2,8 @@ import { FC } from 'react'
 import NextHead from 'next/head'
 import { IHeadProps } from '@utils/interfaces'
 
-const defaultMetaTitle = 'Find Participating Salons Nearby Your Location'
-const defaultDescription = ''
+const defaultMetaTitle = 'Mr Salons'
+const defaultDescription = 'Find Participating Salons Nearby Your Location'
 const defaultKeywords = ''
 const defaultOGURL = ''
 const defaultOGImage = ''
@@ -12,7 +12,7 @@ const defaultLang = 'en'
 const defaultAuthor = ''
 
 const Head: FC<IHeadProps> = ({
-  title = defaultMetaTitle,
+  title,
   metaTitle = defaultMetaTitle,
   copyright = defaultCopyright,
   language = defaultLang,
@@ -24,7 +24,7 @@ const Head: FC<IHeadProps> = ({
 }) => (
   <NextHead>
     <meta charSet="UTF-8" />
-    <title>{title}</title>
+    <title>{title !== '' ? `${title} - ${metaTitle}` : metaTitle}</title>
 
     {/* Meta Tags */}
     <meta name="title" content={metaTitle} />

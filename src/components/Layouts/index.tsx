@@ -16,8 +16,6 @@ const Layout: FC<Props> = ({
   title,
   description,
   keywords,
-  //   navbar = true,
-  //   footer = true,
 }): JSX.Element => {
   return (
     <>
