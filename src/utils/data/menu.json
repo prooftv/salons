@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Home",
+    "link": "/"
+  },
+  {
+    "title": "Pricing",
+    "link": "/"
+  },
+  {
+    "title": "Blog",
+    "link": "/"
+  },
+  {
+    "title": "Faq",
+    "link": "/"
+  },
+  {
+    "title": "Team",
+    "link": "/"
+  },
+  {
+    "title": "Contact",
+    "link": "/contact"
+  },
+  {
+    "title": "Sign in",
+    "link": "/login",
+    "hideToLoggedUser": true
+  },
+  {
+    "title": "Sign up",
+    "link": "/signup",
+    "hideToLoggedUser": true
+  },
+  {
+    "title": "Add a listing",
+    "link": "/",
+    "button": true,
+    "hideToLoggedUser": true
+  }
+]
