@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Router from 'next/router'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap'
 
-import ActiveLink from '../ActiveLink'
+import ActiveLink from '@components/ActiveLink'
 
 import menu from '@utils/data/menu.json'
 
