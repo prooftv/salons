@@ -1,17 +1,18 @@
-import React from "react"
-import Link from "next/link"
-import { Media, Card } from "react-bootstrap"
+import React, { FC } from 'react'
+import Link from 'next/link'
+import { Card } from 'react-bootstrap'
 
-import Stars from "./Stars"
-import Icon from "./Icon"
-import Image from "./CustomImage"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRight, faUsers } from "@fortawesome/free-solid-svg-icons"
-import { faCalendar } from "@fortawesome/free-regular-svg-icons"
+import Stars from '@components/Stars'
+// import Icon from '@components/Icon'
+import Image from '@components/CustomImage'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 
-const BookingColumn = (props) => {
+const BookingColumn: FC = (props): JSX.Element => {
   const from = props.from
   const to = props.to
+  
   return (
     <Card className="border-0 shadow">
       <Card.Body className="p-4">
@@ -61,7 +62,7 @@ const BookingColumn = (props) => {
                 icon={faCalendar}
                 className="fa-fw text-muted me-2"
               />
-              {from.month.substring(0, 3)} {from.day}, {from.year}{" "}
+              {from.month.substring(0, 3)} {from.day}, {from.year}{' '}
               <FontAwesomeIcon
                 icon={faArrowRight}
                 className="fa-fw text-muted mx-3"
@@ -96,7 +97,7 @@ const BookingColumn = (props) => {
           <div>
             <h6 className="text-primary">Flexible – free cancellation</h6>
             <p className="text-sm text-primary opacity-8 mb-0">
-              Cancel within 48 hours of booking to get a full refund.{" "}
+              Cancel within 48 hours of booking to get a full refund.{' '}
               <a href="#" className="text-reset ms-3">
                 More details
               </a>
