@@ -1,12 +1,9 @@
 import React from "react"
-
 import Link from "next/link"
-
 import { Container, Row, Col, Card, Button, Breadcrumb } from "react-bootstrap"
-
-import data from "@utils/data/pricing.json"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons"
+import data from "@utils/data/pricing.json"
 
 export async function getStaticProps() {
   return {
