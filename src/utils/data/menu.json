@@ -4,20 +4,12 @@
     "link": "/"
   },
   {
+    "title": "About",
+    "link": "/about"
+  },
+  {
     "title": "Pricing",
-    "link": "/"
-  },
-  {
-    "title": "Blog",
-    "link": "/"
-  },
-  {
-    "title": "Faq",
-    "link": "/"
-  },
-  {
-    "title": "Team",
-    "link": "/"
+    "link": "/pricing"
   },
   {
     "title": "Contact",
@@ -35,7 +27,7 @@
   },
   {
     "title": "Add a listing",
-    "link": "/",
+    "link": "/add-a-listing",
     "button": true,
     "hideToLoggedUser": true
   }
