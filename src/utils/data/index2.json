@@ -6,20 +6,20 @@
     },
     "searchOptions": [
         {
-            "value": "small",
-            "label": "Restaurants"
+            "value": "mobile-hair-salons",
+            "label": "Mobile Hair Salons"
         },
         {
-            "value": "medium",
-            "label": "Hotels"
+            "value": "cosmetics",
+            "label": "Cosmetics"
         },
         {
-            "value": "large",
-            "label": "Cafes"
+            "value": "aesthetics",
+            "label": "Aesthetics"
         },
         {
-            "value": "x-large",
-            "label": "Garages"
+            "value": "beauty-salons",
+            "label": "Beauty Salons"
         }
     ],
     "popularCities": {
@@ -51,15 +51,15 @@
         ]
     },
     "popular": {
-        "title": "Popular places around you",
+        "title": "Popular beauty salons around you",
         "subTitle": "Try something new today",
         "button": "See all places",
-        "buttonLink": "/category-2"
+        "buttonLink": "/"
     },
     "travel": {
-        "title": "Travel & Explore",
-        "subtitle": "Find the best spots",
-        "content": "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections",
+        "title": "Explore the world of different types of beauty",
+        "subtitle": "Find the best spots for personal care treatments",
+        "content": "More and more people today are taking the time to invest in themselves. They want to look and feel better. They eat healthy, exercise and work on self-care and improvement",
         "button": "Get started",
         "buttonLink": "/category-rooms",
         "img": "photo-1507915135761-41a0a222c709.jpg"
@@ -112,7 +112,7 @@
     "bottomBlock": {
         "title": "Start using MrSalons today",
         "subTitle": "MrSalons is the best way to find & discover great local salons",
-        "content": "One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed in",
+        "content": "",
         "button": "Create Your Account",
         "buttonLink": "#",
         "small": "It's free!"

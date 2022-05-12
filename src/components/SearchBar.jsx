@@ -35,7 +35,7 @@ function SearchBar(props) {
             <Form.Control
               type="text"
               name="search"
-              placeholder="What are you searching for?"
+              placeholder="Search for personal care treatment."
               className="border-0 shadow-0"
             />
           </Col>
