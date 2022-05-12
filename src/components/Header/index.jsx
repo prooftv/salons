@@ -53,21 +53,22 @@ function Header(props) {
   }
 
   useEffect(highlightDropdownParent, [])
+
   return (
-    <header className={`header ${props.headerClasses ? props.headerClasses : ""}`}>
+    <header className={`header ${props.headerClasses || ""}`}>
       <Navbar
         variant={props.nav.light ? "light" : "dark"}
         bg={props.nav.color ? props.nav.color : "white"}
         fixed={props.nav.fixed ? props.nav.fixed : "top"}
         expand="lg"
         expanded={collapsed}
-        className={props.nav.classes ? props.nav.classes : ""}>
+        className={props.nav.classes || ""}>
         <Container fluid>
           <div className="d-flex align-items-center">
             {/* NAVBAR BRAND */}
             <Link href="/" passHref>
               <Navbar.Brand className="py-1">
-                <img src="/content/svg/logo.svg" width="138" height="31" alt="Directory logo" />
+                <img src="/logo.jpeg" width="150" height="60" alt="Directory logo" />
               </Navbar.Brand>
             </Link>
             {/* END NAVBAR BRAND */}
