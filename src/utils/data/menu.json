@@ -12,12 +12,16 @@
     "link": "/pricing"
   },
   {
+    "title": "Blog",
+    "link": "/blog"
+  },
+  {
     "title": "Contact",
     "link": "/contact"
   },
   {
     "title": "Sign in",
-    "link": "/login",
+    "link": "/signin",
     "hideToLoggedUser": true
   },
   {

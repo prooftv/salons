@@ -2,24 +2,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
-import { Card, Button } from "react-bootstrap"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faClock } from "@fortawesome/free-regular-svg-icons"
-import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons"
-import Image from "./CustomImage"
+import { Card, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
+import Image from "@components/CustomImage";
+import sanityClient from "@utils/services";
+import imageUrlBuilder from "@sanity/image-url";
+import { formatDistance } from "date-fns";
+
+const builder = imageUrlBuilder(sanityClient);
+
+function urlFor(source) {
+  return builder.image(source);
+}
 
 function CardPost(props) {
-  const post = props.data
+  const post = props.data;
+
+  console.log("Posts categories: ", props.data.categories[0]);
   return (
     <Card className="border-0 h-100 shadow">
-      <Link href={`/blog/${post.slug}`}>
+      <Link href={`/blog/${post.slug.current}`}>
         <a className="">
           <Image
-            src={`/content/${post.img}`}
-            alt="..."
+            src={urlFor(post.mainImage.asset.url).url()}
+            alt={`${post.title}`}
             width={1080}
             height={720}
             layout="intrinsic"
@@ -29,27 +40,38 @@ function CardPost(props) {
         </a>
       </Link>
       <Card.Body>
-        <a href="#" className="text-uppercase text-muted text-sm letter-spacing-2">
-          {post.category}
-        </a>
+        {post.categories.length > 0 &&
+          post.categories.map((category) => (
+            <a
+              href="#"
+              key={category._id}
+              className="text-uppercase text-muted text-sm letter-spacing-2"
+            >
+              {category.title}
+            </a>
+          ))}
         <h5 className="my-2">
-          <Link href={`/blog/${post.slug}`}>
+          <Link href={`/blog/${post.slug.current}`}>
             <a className="text-dark">{post.title}</a>
           </Link>
         </h5>
         <p className="text-gray-500 text-sm my-3">
           <FontAwesomeIcon icon={faClock} className="me-2" />
-          {post.date}
+          {formatDistance(new Date(post.publishedAt), new Date(), {
+            addSuffix: true,
+          })}
         </p>
-        <p className="my-2 text-muted text-sm">{post.content}</p>
-        <Link href={`/blog/${post.slug}`} passHref>
+        <p className="my-2 text-muted text-sm">
+          {`${post.body[0].children[0].text.substring(0, 150)}...`}
+        </p>
+        <Link href={`/blog/${post.slug.current}`} passHref>
           <Button className="ps-0" variant="link">
             Read more <FontAwesomeIcon icon={faLongArrowAltRight} />
           </Button>
         </Link>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
-export default CardPost
+export default CardPost;
