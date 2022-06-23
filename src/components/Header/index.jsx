@@ -5,54 +5,61 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable import/no-unresolved */
-import React, { useEffect, useState } from "react"
-import Link from "next/link"
-import Router from "next/router"
-import { Navbar, Nav, Container, Button } from "react-bootstrap"
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Router from "next/router";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars } from "@fortawesome/free-solid-svg-icons"
-import ActiveLink from "@components/ActiveLink"
-import SearchForm from "@components/Header/SearchForm"
-import UserMenu from "@components/Header/UserMenu"
-import DropdownMenuItem from "@components/Header/DropdownMenuItem"
-import menu from "@utils/data/menu.json"
-import UseWindowSize from "@utils/hooks/UseWindowSize"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import ActiveLink from "@components/ActiveLink";
+import SearchForm from "@components/Header/SearchForm";
+import UserMenu from "@components/Header/UserMenu";
+import DropdownMenuItem from "@components/Header/DropdownMenuItem";
+import menu from "@utils/data/menu.json";
+import UseWindowSize from "@utils/hooks/UseWindowSize";
 
 function Header(props) {
-  const [parentName, setParentName] = useState(false)
-  const [collapsed, setCollapsed] = useState(false)
-  const size = UseWindowSize()
+  const [parentName, setParentName] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+
+  const size = UseWindowSize();
+
   const onLinkClick = (parent) => {
-    size.width < 991 && setCollapsed(!collapsed)
-    setParentName(parent)
-  }
+    size.width < 991 && setCollapsed(!collapsed);
+    setParentName(parent);
+  };
+
   // highlight not only active dropdown item, but also its parent, i.e. dropdown toggle
   const highlightDropdownParent = () => {
     menu.map((item) => {
       item.dropdown &&
         item.dropdown.map((dropdownLink) => {
-          dropdownLink.link && dropdownLink.link === Router.route && setParentName(item.title)
+          dropdownLink.link &&
+            dropdownLink.link === Router.route &&
+            setParentName(item.title);
           dropdownLink.links &&
             dropdownLink.links.map(
               (link) => link.link === Router.route && setParentName(item.title)
-            )
-        })
+            );
+        });
       item.megamenu &&
         item.megamenu.map((megamenuColumn) =>
           megamenuColumn.map((megamenuBlock) =>
             megamenuBlock.links.map((dropdownLink) => {
               if (dropdownLink.link === Router.route) {
-                dropdownLink.parent ? setParentName(dropdownLink.parent) : setParentName(item.title)
+                dropdownLink.parent
+                  ? setParentName(dropdownLink.parent)
+                  : setParentName(item.title);
               }
             })
           )
-        )
-      item.link === Router.route && setParentName(item.title)
-    })
-  }
+        );
+      item.link === Router.route && setParentName(item.title);
+    });
+  };
 
-  useEffect(highlightDropdownParent, [])
+  useEffect(highlightDropdownParent, []);
 
   return (
     <header className={`header ${props.headerClasses || ""}`}>
@@ -62,13 +69,19 @@ function Header(props) {
         fixed={props.nav.fixed ? props.nav.fixed : "top"}
         expand="lg"
         expanded={collapsed}
-        className={props.nav.classes || ""}>
+        className={props.nav.classes || ""}
+      >
         <Container fluid>
           <div className="d-flex align-items-center">
             {/* NAVBAR BRAND */}
             <Link href="/" passHref>
               <Navbar.Brand className="py-1">
-                <img src="/logo.jpeg" width="150" height="60" alt="Directory logo" />
+                <img
+                  src="/logo.jpeg"
+                  width="150"
+                  height="60"
+                  alt="Directory logo"
+                />
               </Navbar.Brand>
             </Link>
             {/* END NAVBAR BRAND */}
@@ -82,7 +95,10 @@ function Header(props) {
           </div>
 
           {/* NAVBAR TOGGLE */}
-          <Navbar.Toggle aria-controls="navbar-main-menu" onClick={() => setCollapsed(!collapsed)}>
+          <Navbar.Toggle
+            aria-controls="navbar-main-menu"
+            onClick={() => setCollapsed(!collapsed)}
+          >
             <FontAwesomeIcon icon={faBars} />
           </Navbar.Toggle>
           {/* END NAVBAR TOGGLE */}
@@ -101,7 +117,8 @@ function Header(props) {
                 menu.map((item) =>
                   item.dropdown || item.megamenu ? (
                     // show entire menu to unlogged user or hide items that have hideToLoggedUser set to true
-                    !props.loggedUser || (props.loggedUser && !item.hideToLoggedUser) ? (
+                    !props.loggedUser ||
+                    (props.loggedUser && !item.hideToLoggedUser) ? (
                       // DROPDOWN ITEM
                       <DropdownMenuItem
                         onLinkClick={onLinkClick}
@@ -112,22 +129,34 @@ function Header(props) {
                     ) : (
                       ""
                     )
-                  ) : (props.loggedUser && !item.hideToLoggedUser) || !props.loggedUser ? (
+                  ) : (props.loggedUser && !item.hideToLoggedUser) ||
+                    !props.loggedUser ? (
                     // NAV ITEM
                     <Nav.Item
                       key={item.title}
                       className={
-                        item.button ? "mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block" : ""
-                      }>
+                        item.button
+                          ? "mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"
+                          : ""
+                      }
+                    >
                       {item.button ? (
                         item.showToLoggedUser !== false && (
                           <ActiveLink activeClassName="active" href={item.link}>
-                            <Button onClick={() => onLinkClick(item.title)}>{item.title}</Button>
+                            <Button onClick={() => onLinkClick(item.title)}>
+                              {item.title}
+                            </Button>
                           </ActiveLink>
                         )
                       ) : (
-                        <ActiveLink activeClassName="active" href={item.link} passHref>
-                          <Nav.Link onClick={() => onLinkClick(item.title)}>{item.title}</Nav.Link>
+                        <ActiveLink
+                          activeClassName="active"
+                          href={item.link}
+                          passHref
+                        >
+                          <Nav.Link onClick={() => onLinkClick(item.title)}>
+                            {item.title}
+                          </Nav.Link>
                         </ActiveLink>
                       )}
                     </Nav.Item>
@@ -144,7 +173,7 @@ function Header(props) {
         </Container>
       </Navbar>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

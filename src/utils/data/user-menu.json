@@ -4,23 +4,19 @@
   "title": "Jack London",
   "dropdown": [
     {
-      "title": "Booking process - 4 pages",
-      "link": "/user-booking-1"
+      "title": "Profile",
+      "link": "/user/profile"
     },
     {
-      "title": "Bookings — grid view",
-      "link": "/user-grid"
-    },
-    {
-      "title": "Booking detail",
-      "link": "/user-booking-detail"
+      "title": "Account",
+      "link": "/user/account"
     },
     {
       "divider": true
     },
     {
       "title": "Sign out",
-      "link": "/login",
+      "link": "/api/auth/logout",
       "signout": true
     }
   ]

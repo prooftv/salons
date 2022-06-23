@@ -21,7 +21,7 @@
   },
   {
     "title": "Sign in",
-    "link": "/signin",
+    "link": "/api/auth/login",
     "hideToLoggedUser": true
   },
   {
