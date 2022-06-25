@@ -118,7 +118,7 @@ function Header(props) {
                   item.dropdown || item.megamenu ? (
                     // show entire menu to unlogged user or hide items that have hideToLoggedUser set to true
                     !props.loggedUser ||
-                    (props.loggedUser && !item.hideToLoggedUser) ? (
+                    (props.loggedUser && !item.hideToLoggedUser) && (
                       // DROPDOWN ITEM
                       <DropdownMenuItem
                         onLinkClick={onLinkClick}
@@ -126,9 +126,7 @@ function Header(props) {
                         key={item.title}
                         parentName={parentName}
                       />
-                    ) : (
-                      ""
-                    )
+                    ) 
                   ) : (props.loggedUser && !item.hideToLoggedUser) ||
                     !props.loggedUser ? (
                     // NAV ITEM
