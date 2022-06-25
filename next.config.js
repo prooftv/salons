@@ -28,6 +28,13 @@ module.exports = withPlugins(
       GOOGLE_API_KEY: "AIzaSyDUcxMNnz5ofM1JUMQUb4mRFm25Lpxt5co&v=3",
       MAPBOX_TOKEN:
         "pk.eyJ1IjoicHJvb2Z0diIsImEiOiJja3R5Z3BmYm4wOWF4MzBwYzRucjdrZ3hzIn0.XV5_VzN2Lg7RA3d-sD55hw",
+      AUTH0_SECRET:
+        "9191842c6bac28d6fb447207015df6761c69b92c2d2d6876c676f55303311904",
+      AUTH0_BASE_URL: "https://mrsalons.vercel.app/",
+      AUTH0_ISSUER_BASE_URL: "https://mrsalons.us.auth0.com",
+      AUTH0_CLIENT_ID: "efiukUliuhpfC7bxNCvrrH7W7qP1LKo6",
+      AUTH0_CLIENT_SECRET:
+        "dfibIjpKWO_YG6xCdTstEbYUu3ct1nwguGpGb6nfW8ctV2_NR3p_5bGknVB3sZBm",
     },
     // trailingSlash: true, // Uncomment this line for STATIC EXPORT
     webpack: (config) => {
