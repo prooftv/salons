@@ -12,5 +12,6 @@ export const apiURL = (query) => {
 export default sanityClient({
   projectId: `${SANITY_PROJECT_ID}`,
   dataset: `${SANITY_PROJECT_DATASET}`,
+  apiVersion: "2021-08-31",
   useCdn: true,
 });
