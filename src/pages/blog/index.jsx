@@ -16,6 +16,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import sanityClient from "@utils/services";
 
+const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const SANITY_PROJECT_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET;
+
 export async function getStaticProps() {
   return {
     props: {
@@ -41,6 +44,13 @@ const Blog = () => {
   }
 
   useEffect(() => {
+    (() => {
+      console.log("Sanity project ID: ", SANITY_PROJECT_ID);
+      console.log("Sanity project dataset: ", SANITY_PROJECT_DATASET);
+    })();
+  }, []);
+
+  useEffect(() => {
     sanityClient
       .fetch(
         `*[_type == "post"]{
@@ -64,7 +74,6 @@ const Blog = () => {
       }`
       )
       .then((res) => {
-        console.log("Blog Posts: ", res);
         setPosts(res);
       })
       .catch(console.error);
