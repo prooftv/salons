@@ -1,5 +1,8 @@
 import sanityClient from "@sanity/client";
 
+const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const SANITY_PROJECT_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET;
+
 export const apiURL = (query) => {
   const SANITY_API_URL = `https://${process.env.SANITY_PROJECT_ID}.api.sanity.io/v1/data/query/production?query=${query}`;
 
@@ -7,7 +10,7 @@ export const apiURL = (query) => {
 };
 
 export default sanityClient({
-  projectId: "3fct4gna",
-  dataset: "production",
+  projectId: `${SANITY_PROJECT_ID}`,
+  dataset: `${SANITY_PROJECT_DATASET}`,
   useCdn: true,
 });
