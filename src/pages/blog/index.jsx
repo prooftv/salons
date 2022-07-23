@@ -45,6 +45,8 @@ const Blog = () => {
 
   useEffect(() => {
     (() => {
+      const sanityClientTmp = sanityClient();
+      console.log("Sanity client: ", sanityClientTmpS);
       console.log("Sanity project ID: ", SANITY_PROJECT_ID);
       console.log("Sanity project dataset: ", SANITY_PROJECT_DATASET);
     })();
