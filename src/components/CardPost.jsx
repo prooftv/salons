@@ -13,32 +13,35 @@ import Image from "@components/CustomImage";
 import sanityClient from "@utils/services";
 import imageUrlBuilder from "@sanity/image-url";
 import { formatDistance } from "date-fns";
+import { urlFor } from "@utils/services";
+// const builder = imageUrlBuilder(sanityClient);
 
-const builder = imageUrlBuilder(sanityClient);
-
-function urlFor(source) {
-  return builder.image(source);
-}
+// function urlFor(source) {
+//   return builder.image(source);
+// }
 
 function CardPost(props) {
   const post = props.data;
 
-  console.log("Posts categories: ", props.data.categories[0]);
+  console.log("Post: ", post);
+
   return (
     <Card className="border-0 h-100 shadow">
-      <Link href={`/blog/${post.slug.current}`}>
-        <a className="">
-          <Image
-            src={urlFor(post.mainImage.asset.url).url()}
-            alt={`${post.title}`}
-            width={1080}
-            height={720}
-            layout="intrinsic"
-            className="img-fluid card-img-top"
-            loading={props.eager ? "eager" : "lazy"}
-          />
-        </a>
-      </Link>
+      {post.mainImage && (
+        <Link href={`/blog/${post.slug.current}`}>
+          <a className="">
+            <Image
+              src={urlFor(post.mainImage.asset.url).url()}
+              alt={`${post.title}`}
+              width={1080}
+              height={720}
+              layout="intrinsic"
+              className="img-fluid card-img-top"
+              loading={props.eager ? "eager" : "lazy"}
+            />
+          </a>
+        </Link>
+      )}
       <Card.Body>
         {post.categories.length > 0 &&
           post.categories.map((category) => (
@@ -64,6 +67,7 @@ function CardPost(props) {
         <p className="my-2 text-muted text-sm">
           {`${post.body[0].children[0].text.substring(0, 150)}...`}
         </p>
+
         <Link href={`/blog/${post.slug.current}`} passHref>
           <Button className="ps-0" variant="link">
             Read more <FontAwesomeIcon icon={faLongArrowAltRight} />

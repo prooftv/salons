@@ -5,6 +5,14 @@ const withPlugins = require("next-compose-plugins");
 const reactSvg = require("next-react-svg");
 const path = require("path");
 
+const STUDIO_REWRITE = {
+  source: "/admin/:path*",
+  destination:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:333/studio/:path*"
+      : "/mrsalonz-app/index.html",
+};
+
 module.exports = withPlugins(
   [
     [
@@ -27,7 +35,7 @@ module.exports = withPlugins(
       production_type: "server", // Change variable to "static" for STATIC EXPORT
       GOOGLE_API_KEY: "AIzaSyDUcxMNnz5ofM1JUMQUb4mRFm25Lpxt5co&v=3",
       MAPBOX_TOKEN:
-        "pk.eyJ1IjoicHJvb2Z0diIsImEiOiJja3R5Z3BmYm4wOWF4MzBwYzRucjdrZ3hzIn0.XV5_VzN2Lg7RA3d-sD55hw"
+        "pk.eyJ1IjoicHJvb2Z0diIsImEiOiJja3R5Z3BmYm4wOWF4MzBwYzRucjdrZ3hzIn0.XV5_VzN2Lg7RA3d-sD55hw",
     },
     // trailingSlash: true, // Uncomment this line for STATIC EXPORT
     webpack: (config) => {
@@ -35,5 +43,6 @@ module.exports = withPlugins(
 
       return config;
     },
+    rewrites: () => [STUDIO_REWRITE],
   }
 );

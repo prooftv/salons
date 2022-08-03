@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 import { Container, Row, Col, Pagination, Button, Card } from "react-bootstrap";
@@ -14,14 +14,43 @@ import {
   faChevronRight,
   faLongArrowAltRight,
 } from "@fortawesome/free-solid-svg-icons";
-import sanityClient from "@utils/services";
+import {
+  getClient,
+  usePreviewSubscriptionHook,
+  PortableText,
+} from "@utils/services";
+import { groq } from "next-sanity";
 
-const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const SANITY_PROJECT_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET;
+const query = groq`
+*[_type == "post"] | order(_createdAt desc) {
+  _id,
+  title,
+  slug,
+  author->{
+      name
+  },
+  mainImage{
+      asset->{
+          _id,
+          url
+      }
+  },
+  'categories': categories[] {
+      _type == 'reference' => @->
+  },
+  publishedAt,
+  body
+}
+`;
 
-export async function getStaticProps() {
+export async function getStaticProps({ params, preview = false }) {
+  const post = await getClient(preview).fetch(query);
+
   return {
     props: {
+      postData: post,
+      preview,
+      revalidate: 10,
       nav: {
         light: true,
         classes: "shadow",
@@ -32,62 +61,76 @@ export async function getStaticProps() {
   };
 }
 
-const Blog = () => {
-  const [posts, setPosts] = useState(null);
+const Blog = (props) => {
+  const { postData, preview } = props;
+
+  // const [posts, setPosts] = useState(null);
+
+  const router = useRouter();
+
+  const { data: posts } = usePreviewSubscriptionHook(query, {
+    initialData: postData,
+    enabled: preview || router.query.preview !== undefined,
+  });
 
   let featuredPost;
-
   if (posts) {
     featuredPost = posts[0];
   } else {
     featuredPost = [];
   }
 
-  useEffect(() => {
-    (() => {
-      const sanityClientTmp = sanityClient;
-      console.log("Sanity client: ", sanityClientTmp);
-      console.log("Sanity project ID: ", SANITY_PROJECT_ID);
-      console.log("Sanity project dataset: ", SANITY_PROJECT_DATASET);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (() => {
+  //     console.log("Featured Posts: ", featuredPost);
+  //   })();
+  // }, [posts]);
 
-  useEffect(() => {
-    sanityClient
-      .fetch(
-        `*[_type == "post"]{
-            _id,
-          title,
-          slug,
-          author->{
-              name
-          },
-          mainImage{
-              asset->{
-                  _id,
-                  url
-              }
-          },
-          'categories': categories[] {
-              _type == 'reference' => @->
-          },
-          publishedAt,
-          body
-      }`
-      )
-      .then((res) => {
-        setPosts(res);
-      })
-      .catch(console.error);
-  }, []);
+  // useEffect(() => {
+  //   (() => {
+  //     const sanityClientTmp = sanityClient;
+  //     console.log("Sanity client: ", sanityClientTmp);
+  //     console.log("Sanity project ID: ", SANITY_PROJECT_ID);
+  //     console.log("Sanity project dataset: ", SANITY_PROJECT_DATASET);
+  //   })();
+  // }, []);
+
+  // useEffect(() => {
+  //   sanityClient
+  //     .fetch(
+  //       `*[_type == "post"]{
+  //           _id,
+  //         title,
+  //         slug,
+  //         author->{
+  //             name
+  //         },
+  //         mainImage{
+  //             asset->{
+  //                 _id,
+  //                 url
+  //             }
+  //         },
+  //         'categories': categories[] {
+  //             _type == 'reference' => @->
+  //         },
+  //         publishedAt,
+  //         body
+  //     }`
+  //     )
+  //     .then((res) => {
+  //       setPosts(res);
+  //     })
+  //     .catch(console.error);
+  // }, []);
 
   return (
     <React.Fragment>
       {posts && (
         <section className="position-relative py-6">
-          {featuredPost.mainImage.asset.url && (
+          {featuredPost.mainImage && featuredPost.mainImage.asset.url && (
             <Image
-              src={`${featuredPost.mainImage.asset.url}`}
+              src={`${featuredPost?.mainImage?.asset?.url}`}
               alt={featuredPost.title}
               className="bg-image"
               loading="eager"
@@ -100,9 +143,11 @@ const Blog = () => {
               <Col lg="6">
                 <Card>
                   <Card.Body className="p-5">
-                    {/* <strong className="text-uppercase text-secondary d-inline-block mb-2 text-sm">
-                      {featuredPost.subtitle}
-                    </strong> */}
+                    {featuredPost.subtitle && (
+                      <strong className="text-uppercase text-secondary d-inline-block mb-2 text-sm">
+                        {featuredPost.subtitle}
+                      </strong>
+                    )}
                     <h2 className="mb-3">{featuredPost.title}</h2>
                     <p className="text-muted">
                       {`${featuredPost.body[0].children[0].text.substring(
