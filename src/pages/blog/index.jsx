@@ -64,8 +64,6 @@ export async function getStaticProps({ params, preview = false }) {
 const Blog = (props) => {
   const { postData, preview } = props;
 
-  // const [posts, setPosts] = useState(null);
-
   const router = useRouter();
 
   const { data: posts } = usePreviewSubscriptionHook(query, {
@@ -79,50 +77,6 @@ const Blog = (props) => {
   } else {
     featuredPost = [];
   }
-
-  // useEffect(() => {
-  //   (() => {
-  //     console.log("Featured Posts: ", featuredPost);
-  //   })();
-  // }, [posts]);
-
-  // useEffect(() => {
-  //   (() => {
-  //     const sanityClientTmp = sanityClient;
-  //     console.log("Sanity client: ", sanityClientTmp);
-  //     console.log("Sanity project ID: ", SANITY_PROJECT_ID);
-  //     console.log("Sanity project dataset: ", SANITY_PROJECT_DATASET);
-  //   })();
-  // }, []);
-
-  // useEffect(() => {
-  //   sanityClient
-  //     .fetch(
-  //       `*[_type == "post"]{
-  //           _id,
-  //         title,
-  //         slug,
-  //         author->{
-  //             name
-  //         },
-  //         mainImage{
-  //             asset->{
-  //                 _id,
-  //                 url
-  //             }
-  //         },
-  //         'categories': categories[] {
-  //             _type == 'reference' => @->
-  //         },
-  //         publishedAt,
-  //         body
-  //     }`
-  //     )
-  //     .then((res) => {
-  //       setPosts(res);
-  //     })
-  //     .catch(console.error);
-  // }, []);
 
   return (
     <React.Fragment>

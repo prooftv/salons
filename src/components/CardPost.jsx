@@ -10,28 +10,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
 import Image from "@components/CustomImage";
-import sanityClient from "@utils/services";
-import imageUrlBuilder from "@sanity/image-url";
 import { formatDistance } from "date-fns";
 import { urlFor } from "@utils/services";
-// const builder = imageUrlBuilder(sanityClient);
-
-// function urlFor(source) {
-//   return builder.image(source);
-// }
 
 function CardPost(props) {
   const post = props.data;
 
-  console.log("Post: ", post);
-
   return (
     <Card className="border-0 h-100 shadow">
-      {post.mainImage && (
+      {post.mainImage != null && (
         <Link href={`/blog/${post.slug.current}`}>
           <a className="">
             <Image
-              src={urlFor(post.mainImage.asset.url).url()}
+              src={`${post.mainImage.asset.url}`}
               alt={`${post.title}`}
               width={1080}
               height={720}

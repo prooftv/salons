@@ -43,9 +43,9 @@ const Post = ({ post }) => {
   return (
     <React.Fragment>
       <section className="hero-home dark-overlay mb-5">
-        {post.mainImage && post.mainImage.asset.url && (
+        {post.mainImage && (
           <Image
-            src={post.mainImage.asset.url}
+            src={`${post.mainImage.asset.url}`}
             alt={post.title}
             className="bg-image"
             loading="eager"
@@ -231,7 +231,7 @@ export async function getStaticPaths() {
 
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
-    fallback: true,
+    fallback: false,
   };
 }
 
@@ -239,8 +239,6 @@ export async function getStaticProps({ params, preview = false }) {
   const postData = await getClient().fetch(postQuery, {
     slug: params.slug,
   });
-
-  console.log(postData);
 
   return {
     props: {
