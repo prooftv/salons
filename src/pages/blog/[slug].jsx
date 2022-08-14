@@ -11,19 +11,42 @@ import Avatar from "@components/Avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply } from "@fortawesome/free-solid-svg-icons";
 import { faClock, faComment } from "@fortawesome/free-regular-svg-icons";
-import sanityClient from "@utils/services";
+import { getClient } from "@utils/services";
 import { formatDistance } from "date-fns";
+import { groq } from "next-sanity";
 
-const Post = ({ postData }) => {
+const postQuery = groq`
+  *[_type == "post" && slug.current == $slug][0] {
+    _id,
+  title,
+  'slug': slug.current,
+  author->{
+      name
+  },
+  mainImage{
+      asset->{
+          _id,
+          url
+      }
+  },
+  'categories': categories[] {
+      _type == 'reference' => @->
+  },
+  publishedAt,
+  body
+  }
+`;
+
+const Post = ({ post }) => {
   const [formCollapse, setFormCollapse] = React.useState(false);
 
   return (
     <React.Fragment>
       <section className="hero-home dark-overlay mb-5">
-        {postData.mainImage.asset.url && (
+        {post.mainImage && post.mainImage.asset.url && (
           <Image
-            src={postData.mainImage.asset.url}
-            alt={postData.title}
+            src={post.mainImage.asset.url}
+            alt={post.title}
             className="bg-image"
             loading="eager"
             layout="fill"
@@ -33,7 +56,7 @@ const Post = ({ postData }) => {
         <Container className="py-7">
           <div className="overlay-content text-center text-white">
             <h1 className="display-3 text-serif fw-bold text-shadow mb-0">
-              {postData.title && postData.title}
+              {post.title && post.title}
             </h1>
           </div>
         </Container>
@@ -43,8 +66,8 @@ const Post = ({ postData }) => {
           <Row>
             <Col lg="10" xl="8" className="mx-auto">
               <p className="py-3 mb-5 text-muted text-center fw-light d-flex align-items-center justify-content-center flex-wrap">
-                {postData.author.name && (
-                  <Link href={postDummyData.authorLink}>
+                {post.author && post.author.name && (
+                  <Link href="/blog">
                     <a>
                       <Avatar
                         image={`/content/img/avatar/${postDummyData.authorAvatar}`}
@@ -56,19 +79,19 @@ const Post = ({ postData }) => {
                   </Link>
                 )}
                 Written by&nbsp;
-                {postData.author.name && (
+                {post.author && post.author.name && (
                   <Link href={"/"}>
-                    <a className="fw-bold">{postData.author.name}</a>
+                    <a className="fw-bold">{post.author.name}</a>
                   </Link>
                 )}
                 <span className="mx-1">|</span>{" "}
-                {postData.publishedAt &&
-                  formatDistance(new Date(postData.publishedAt), new Date(), {
+                {post.publishedAt &&
+                  formatDistance(new Date(post.publishedAt), new Date(), {
                     addSuffix: true,
                   })}{" "}
                 in&nbsp;
-                {postData.categories.length > 0 &&
-                  postData.categories.map((category) => (
+                {post.categories.length > 0 &&
+                  post.categories.map((category) => (
                     <Link key={category._id} href={"/"}>
                       <a className="fw-bold pr2">{category.title}</a>
                     </Link>
@@ -82,7 +105,7 @@ const Post = ({ postData }) => {
               <p
                 className="lead mb-5"
                 dangerouslySetInnerHTML={{
-                  __html: postData.body[0].children[0].text,
+                  __html: post.body[0].children[0].text,
                 }}
               />
             </Col>
@@ -201,80 +224,23 @@ const Post = ({ postData }) => {
   );
 };
 
-export function getAllPostIds() {
-  return blog.posts.map((post) => ({
-    params: {
-      slug: post.slug,
-    },
-  }));
+export async function getStaticPaths() {
+  const paths = await getClient().fetch(
+    groq`*[_type == "post" && defined(slug.current)][].slug.current`
+  );
+
+  return {
+    paths: paths.map((slug) => ({ params: { slug } })),
+    fallback: true,
+  };
 }
 
-export function getPostData(slug) {
-  for (var i = 0; i < blog.posts.length; i++) {
-    if (blog.posts[i].slug == slug) {
-      return blog.posts[i];
-    }
-  }
-}
+export async function getStaticProps({ params, preview = false }) {
+  const postData = await getClient().fetch(postQuery, {
+    slug: params.slug,
+  });
 
-// export async function getStaticPaths() {
-//   return {
-//     paths: getAllPostIds(),
-//     fallback: false,
-//   };
-// }
-
-// export async function getStaticProps({ params }) {
-//   const postData = getPostData(params.slug);
-//   return {
-//     props: {
-//       nav: {
-//         light: true,
-//         classes: "shadow",
-//         color: "white",
-//       },
-//       title: postData.title,
-//       postData,
-//     },
-//   };
-// }
-
-export const getServerSideProps = async (context) => {
-  const pageSlug = context.query.slug;
-  // const postData = getPostData(pageSlug);
-
-  if (!pageSlug) {
-    return {
-      notFound: true,
-    };
-  }
-
-  console.log("slug: ", pageSlug);
-
-  const query = `*[_type == "post" && slug.current == "${pageSlug}"][0]
-  {
-    _id,
-    title,
-    slug,
-    author->{
-        name
-    },
-    mainImage{
-        asset->{
-            _id,
-            url
-        }
-    },
-    'categories': categories[] {
-        _type == 'reference' => @->
-    },
-    publishedAt,
-    body
-  }`;
-  const params = { slug: pageSlug };
-  const postResult = await sanityClient.fetch(query, params);
-
-  console.log("Post: ", postResult);
+  console.log(postData);
 
   return {
     props: {
@@ -283,10 +249,10 @@ export const getServerSideProps = async (context) => {
         classes: "shadow",
         color: "white",
       },
-      title: postResult.title,
-      postData: postResult,
+      title: postData.title,
+      post: postData,
     },
   };
-};
+}
 
 export default Post;
